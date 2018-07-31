@@ -6,77 +6,71 @@
     <title>BooksFinder</title>
 </head>
 <body>
-
-
 <div layout:fragment="content" th:remove="tag">
     <section>
         <div class="jumbotron">
             <div class="container">
-                <h1>Books Finder</h1>
-                <p>Hire you can filter our books</p>
+                <h1>Book</h1>
+                <p>Search book</p>
             </div>
         </div>
     </section>
+    <section class="container">
+        <form action="#" th:action="@{/books/find}" th:object="${newBook}" method="post" class="form-horizontal">
+            <fieldset>
+                <legend>Search book</legend>
 
-    <!--<section>-->
-       <!--<div> <h1>Form</h1>-->
-        <!--<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">-->
-            <!--<p>Id: <input type="text" th:field="*{id}" /></p>-->
-            <!--<p>Message: <input type="text" th:field="*{content}" /></p>-->
-            <!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
-        <!--</form></div>-->
-    <!--</section>-->
-    <!--<section>   -->
-        <!--<h3>Spring Boot and Thymeleaf, part 2 - forms</h3>-->
-        <!--<form action="#" th:action="@{/books/find}" th:object="${book}" method="post">-->
-            <!--<table>-->
-                <!--<tr>-->
-                    <!--<td>Title:</td>-->
-                    <!--<td><input type="text" th:field="*{title}" /></td>-->
-
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td>Content:</td>-->
-                    <!--<td><input type="text" th:field="*{authors}" /></td>-->
-
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><button type="submit">Submit post</button></td>-->
-                <!--</tr>-->
-            <!--</table>-->
-        <!--</form>-->
-       <!--<form action="#" th:action = "@{/book/find}" method="post" th:object="${book}">-->
-        <!--<div>-->
-        <!--<center>-->
-        <!--Podaj tytuł książki: <input type="text" th:field="*{title}"/> <br/>-->
-        <!--Podaj autora książki: <input name="valueB" type="text" th:field="*{authors}"/> <br/>-->
-        <!--<input value="Search" type="submit"/>-->
-        <!--</center>-->
-        <!--</div>-->
-       <!--</form>-->
-
-        <!--<h2>Form example</h2>-->
-        <!--<form action="#" method="post" th:action="@{/book/find}" th:object="${book}">-->
-            <!--<input type="text" th:field="*{author}" />-->
-            <!--<input type="text" th:field="*{title}" />-->
-            <!--<input type="submit" value="Send" />-->
-        <!--</form>-->
-        <!--<form >th:action="@{/book/find}" th:object="${book}" method="post">-->
-           <!--<p>Title: <input type = "text" th:field="*{title}" /></p>-->
-            <!--<p>Author: <input type = "text" th:field ="*{authors}"/></p>-->
-            <!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
-            <!--<div>-->
-                <!--<center>-->
-                    <!--Podaj tytuł książki: <input type="text" th:field="${title}"/> <br/>-->
-                    <!--Podaj autora książki: <input name="valueB" type="text" th:field="${authors}"/> <br/>-->
-                    <!--<input value="Search" type="submit"/>-->
-                <!--</center>-->
-            <!--</div>-->
-
-
-
+                <!-- Sample template for some fields in Book Entity -->
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="name">Title</label>
+                    <div class="col-lg-10">
+                        <input id="name" type="text" th:field="*{title}" class="form:input-large"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="authors">Author</label>
+                    <div class="col-lg-10">
+                        <input id="authors" type="text" th:field="*{authors}" class="form:input-large"/>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <input type="submit" id="btnAdd" class="btn btn-primary"
+                           value="Search"/>
+                </div>
+            </div>
+        </form>
     </section>
+    <section class="container">
+        <div class="row">
+            <th:block th:each="book : ${bookList}">
+                <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h3 th:text="${book.id}"></h3>
+                            <p th:text="${book.title}"></p>
+                            <p th:text="${book.authors}"></p>
+                            <p th:text="${book.status}">Status: </p>
+                            <p>
+                                <a th:href="@{'/books/book?id='+${book.id}}"
+                                   class="btn btn-primary"> <span
+                                        class="glyphicon-info-sign glyphicon"/></span> Details
+                                </a>
+                            </p>
+                            <p>
+                                <a th:href="@{'/books/deleteBook?id='+${book.id}}"
+                                   class="btn btn-primary"> <span
+                                        class="glyphicon-info-sign glyphicon"/></span> Delete
+                                </a>
+                            </p>
 
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </section>
 </div>
 </body>
 </html>

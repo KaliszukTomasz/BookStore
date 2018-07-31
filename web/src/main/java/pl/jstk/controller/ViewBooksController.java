@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.jstk.constants.ModelConstants;
 import pl.jstk.constants.ViewNames;
+import pl.jstk.enumerations.BookStatus;
 import pl.jstk.service.BookService;
 import pl.jstk.to.BookTo;
+
+import javax.validation.Valid;
 
 @Controller
 public class ViewBooksController {
@@ -35,11 +38,25 @@ public class ViewBooksController {
 
     @GetMapping(value = "/books/deleteBook")
     public String viewDeleteCompleted(@RequestParam Long id, Model model) {
-
-        model.addAttribute("bookId", id);
-        return ViewNames.DELETE_BOOK;
+        bookService.deleteBook(id);
+        model.addAttribute("bookList", bookService.findAllBooks());
+        return ViewNames.BOOKS;
     }
 
+    @GetMapping(value = "/books/add")
+    public String viewAddBook(Model model) {
+        model.addAttribute("newBook", new BookTo());
+        return ViewNames.ADD_BOOK;
+    }
+
+    @PostMapping("/books")
+    public String viewAfterAddBook(@ModelAttribute @Valid BookTo bookTo, Model model) {
+
+        bookService.saveBook(bookTo);
+
+        model.addAttribute("bookList", bookService.findAllBooks());
+        return ViewNames.BOOKS;
+    }
 //    @GetMapping(value = "/books/deleteBook/confirmed")
 //    public String viewDeleteConfirmed(@RequestParam Long id, Model model) {
 //
@@ -52,7 +69,6 @@ public class ViewBooksController {
 //@{/books/deleteBook/confirmed(bookId= ${bookId})}
 //        bookse
 //    }
-
 
 
 }

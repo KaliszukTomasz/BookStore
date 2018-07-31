@@ -15,7 +15,7 @@
             <!--<h2 th:text="${bookId}" asdasd></h2>-->
 <h1 th:text="'Are You sure, that You want to delete book on id: ' +  ${bookId} + '?'"></h1>
             <h1>Form</h1>
-            <form action="bookId= ${bookId}" th:action="@{/books/deleteBook/confirmed}" method="get">
+            <form action="#" th:action="@{/books/deleteBook/confirmed(bookId= ${bookId})}" method="get">
                 <p th:text="${bookId}"></p>
                 <!--<p>Id: <input type="text" th:field="{*book}" /></p>-->
                 <!--<p>Id: <input type="text" th:field="*{id}" /></p>-->

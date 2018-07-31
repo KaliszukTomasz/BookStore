@@ -1,10 +1,23 @@
 package pl.jstk.to;
 
+
+
+import org.hibernate.annotations.NotFound;
+
 import pl.jstk.enumerations.BookStatus;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class BookTo {
     private Long id;
+
+    @NotNull
+    @Size(min = 2, max = 30)
     private String title;
+
+    @NotNull
+    @Size(min = 2, max = 30)
     private String authors;
     private BookStatus status;
     

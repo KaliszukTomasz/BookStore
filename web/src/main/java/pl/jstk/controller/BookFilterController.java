@@ -22,9 +22,20 @@ public class BookFilterController {
 
 
     @GetMapping(value = "/books/find")
-    public String viewAllBooks(@ModelAttribute("book") Book book, Model model) {
+    public String viewAllBooks( Model model) {
 
+        model.addAttribute("newBook", new BookTo());
         model.addAttribute("bookList", bookService.findAllBooks());
+
+        return ViewNames.BOOK_FINDER;
+    }
+
+
+    @PostMapping(value = "/books/find")
+    public String viewFilteredBooks(@ModelAttribute BookTo bookTo, Model model) {
+
+        model.addAttribute("newBook", new BookTo());
+        model.addAttribute("bookList", bookService.findBooksByTitleAndAuthor(bookTo.getTitle(), bookTo.getAuthors()));
 
         return ViewNames.BOOK_FINDER;
     }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>BooksFinder</title>
+</head>
+<body>
+
+
+<div layout:fragment="content" th:remove="tag">
+    <section>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Books Finder</h1>
+                <p>Hire you can filter our books</p>
+            </div>
+        </div>
+    </section>
+
+    <!--<section>-->
+       <!--<div> <h1>Form</h1>-->
+        <!--<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">-->
+            <!--<p>Id: <input type="text" th:field="*{id}" /></p>-->
+            <!--<p>Message: <input type="text" th:field="*{content}" /></p>-->
+            <!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+        <!--</form></div>-->
+    <!--</section>-->
+    <!--<section>   -->
+        <!--<h3>Spring Boot and Thymeleaf, part 2 - forms</h3>-->
+        <!--<form action="#" th:action="@{/books/find}" th:object="${book}" method="post">-->
+            <!--<table>-->
+                <!--<tr>-->
+                    <!--<td>Title:</td>-->
+                    <!--<td><input type="text" th:field="*{title}" /></td>-->
+
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>Content:</td>-->
+                    <!--<td><input type="text" th:field="*{authors}" /></td>-->
+
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td><button type="submit">Submit post</button></td>-->
+                <!--</tr>-->
+            <!--</table>-->
+        <!--</form>-->
+       <!--<form action="#" th:action = "@{/book/find}" method="post" th:object="${book}">-->
+        <!--<div>-->
+        <!--<center>-->
+        <!--Podaj tytuł książki: <input type="text" th:field="*{title}"/> <br/>-->
+        <!--Podaj autora książki: <input name="valueB" type="text" th:field="*{authors}"/> <br/>-->
+        <!--<input value="Search" type="submit"/>-->
+        <!--</center>-->
+        <!--</div>-->
+       <!--</form>-->
+
+        <!--<h2>Form example</h2>-->
+        <!--<form action="#" method="post" th:action="@{/book/find}" th:object="${book}">-->
+            <!--<input type="text" th:field="*{author}" />-->
+            <!--<input type="text" th:field="*{title}" />-->
+            <!--<input type="submit" value="Send" />-->
+        <!--</form>-->
+        <!--<form >th:action="@{/book/find}" th:object="${book}" method="post">-->
+           <!--<p>Title: <input type = "text" th:field="*{title}" /></p>-->
+            <!--<p>Author: <input type = "text" th:field ="*{authors}"/></p>-->
+            <!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+            <!--<div>-->
+                <!--<center>-->
+                    <!--Podaj tytuł książki: <input type="text" th:field="${title}"/> <br/>-->
+                    <!--Podaj autora książki: <input name="valueB" type="text" th:field="${authors}"/> <br/>-->
+                    <!--<input value="Search" type="submit"/>-->
+                <!--</center>-->
+            <!--</div>-->
+
+
+
+    </section>
+
+</div>
+</body>
+</html>

@@ -16,6 +16,11 @@
         </div>
     </section>
 
+    <div th:if="${null!=deletedId}">
+        <div class="alert alert-info" th:text="'You have deleted one book on id: ' + ${deletedId}">
+            You have deleted one book.
+        </div>
+    </div>
     <section class="container">
         <div class="row">
             <th:block th:each="book : ${bookList}">
@@ -34,8 +39,8 @@
                             </p>
                             <p>
                                 <a th:href="@{'/books/deleteBook?id='+${book.id}}" id="21"
-                                   class="btn btn-primary"> <span
-                                        class="glyphicon-info-sign glyphicon"/></span> Delete
+                                   class="btn btn-primary">
+                                    <span class="glyphicon-remove glyphicon"/></span> Delete
                                 </a>
 
                                 <!--<button id="12" onclick="window.location.href='/books/deleteBook?id=3'">DELETE-->
@@ -43,7 +48,7 @@
 
                             </p>
                             <!--<form method="get" action="/books">-->
-                                <!--<button type="submit" onclick="myFunction()">Continue</button>-->
+                            <!--<button type="submit" onclick="myFunction()">Continue</button>-->
                             <!--</form>-->
                             <!--<p><button onclick="window.location.href='/books/deleteBook?id=3'" id="31">DELETE</button></p>-->
                         </div>
@@ -55,7 +60,7 @@
     </section>
 </div>
 <!--<script>-->
-          <!--function myFunction() {window.alert("asd");-->
+<!--function myFunction() {window.alert("asd");)-->
 
 
 <!--</script>-->

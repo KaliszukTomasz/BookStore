@@ -32,8 +32,9 @@ public class ViewBooksController {
     @GetMapping(value = "/books")
     public String viewAllBooks(HttpServletRequest httpServletRequest, Model model) {
 
-//        String userLogin = httpServletRequest.getUserPrincipal().getName();
+        String userLogin = httpServletRequest.getUserPrincipal().getName();
 //        UserEntity loggedUser = userService.findByUserName(userLogin);
+        model.addAttribute("userLogin", userLogin);
         model.addAttribute("bookList", bookService.findAllBooks());
 
         return ViewNames.BOOKS;
@@ -55,6 +56,7 @@ public class ViewBooksController {
     @GetMapping(value = "/books/deleteBook")
     public String viewDeleteCompleted(@RequestParam Long id, Model model) {
         bookService.deleteBook(id);
+        model.addAttribute("deletedId", id);
         model.addAttribute("bookList", bookService.findAllBooks());
         return ViewNames.BOOKS;
     }

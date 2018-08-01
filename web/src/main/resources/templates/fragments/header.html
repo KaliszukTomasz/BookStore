@@ -20,7 +20,11 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li  sec:authorize="isAuthenticated()" style="display: inline-block;">
+                    <li sec:authorize="isAuthenticated()" style="display: inline-block;">
+                        <a th:href="@{/}" th:text="'Hi ' + ${#authentication.name} + '!'"> Name </a>
+                        <!--<a th:href="@{/}" sec:authentication="name"> Name </a>-->
+                    </li>
+                    <li sec:authorize="isAuthenticated()" style="display: inline-block;">
                         <a th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     <li sec:authorize="!isAuthenticated()" style="display: inline-block;"><a th:href="@{/login}"><span
                             class="glyphicon glyphicon-log-in"></span> Login</a></li>

@@ -13,3 +13,19 @@ footer {
 footer p {
     padding: 15px;
 }
+
+#myName {
+    background-color: yellow;
+    text-align:right
+}
+
+.left-half{
+    float: left;
+    width: 50%;
+}
+
+.right-half{
+    float: right;
+    width: 50%;
+    text-align: right;
+}

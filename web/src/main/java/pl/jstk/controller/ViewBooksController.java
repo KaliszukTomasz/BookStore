@@ -46,7 +46,9 @@ public class ViewBooksController {
     }
 
     @GetMapping("/403")
-    public String viewAccessDenied(){
+    public String viewAccessDenied(Model model){
+        model.addAttribute("error", "Access Denied! You are only a user, " +
+                "you have to be ADMIN to delete books! This is a 403 fail!");
         return ViewNames.ACCESS_DENIED;
     }
 

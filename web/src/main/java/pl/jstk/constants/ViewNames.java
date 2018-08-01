@@ -5,6 +5,7 @@ import java.io.Serializable;
 public final class ViewNames implements Serializable {
 
 
+    public static final String ACCESS_DENIED = "403" ;
     private static final long serialVersionUID = 1L;
 
     public static final String BOOKS = "books";

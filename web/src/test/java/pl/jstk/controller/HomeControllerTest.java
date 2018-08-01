@@ -1,5 +1,7 @@
 package pl.jstk.controller;
 
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import pl.jstk.constants.ModelConstants;
 
 import org.junit.Before;
@@ -20,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration
 @SpringBootTest
 public class HomeControllerTest {
 
@@ -28,6 +31,7 @@ public class HomeControllerTest {
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders.standaloneSetup(new HomeController()).build();
+
     }
 
     @Test
@@ -42,5 +46,4 @@ public class HomeControllerTest {
                      .andExpect(content().string(containsString("")));
 
     }
-
 }

@@ -1,13 +1,11 @@
 package pl.jstk.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.jstk.constants.ModelConstants;
 import pl.jstk.constants.ViewNames;
 import pl.jstk.entity.UserEntity;
@@ -30,11 +28,11 @@ public class ViewBooksController {
     UserService userService;
 
     @GetMapping(value = "/books")
-    public String viewAllBooks(HttpServletRequest httpServletRequest, Model model) {
+    public String viewAllBooks(Model model) {
 
-        String userLogin = httpServletRequest.getUserPrincipal().getName();
-//        UserEntity loggedUser = userService.findByUserName(userLogin);
-        model.addAttribute("userLogin", userLogin);
+//        String userLogin = httpServletRequest.getUserPrincipal().getName();
+////        UserEntity loggedUser = userService.findByUserName(userLogin);
+//        model.addAttribute("userLogin", userLogin);
         model.addAttribute("bookList", bookService.findAllBooks());
 
         return ViewNames.BOOKS;
@@ -68,11 +66,13 @@ public class ViewBooksController {
     }
 
     @PostMapping("/books")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public String viewAfterAddBook(@ModelAttribute @Valid BookTo bookTo, Model model) {
 
         bookService.saveBook(bookTo);
 
         model.addAttribute("bookList", bookService.findAllBooks());
+
         return ViewNames.BOOKS;
     }
 
@@ -81,18 +81,4 @@ public class ViewBooksController {
 
         return ViewNames.LOGIN;
     }
-//    @GetMapping(value = "/books/deleteBook/confirmed")
-//    public String viewDeleteConfirmed(@RequestParam Long id, Model model) {
-//
-//        bookService.deleteBook(id);
-//        return ViewNames.BOOKS;
-//    }
-//czy da się przekazać metodą daną nie tylko do widoku, ale do dalszego zdarzenia?
-//    @GetMapping(value = "/books/deleteBook/confirmed")
-//    public String viewDeleteCompleted(@RequestParam Long id, Model model){
-//@{/books/deleteBook/confirmed(bookId= ${bookId})}
-//        bookse
-//    }
-
-
 }

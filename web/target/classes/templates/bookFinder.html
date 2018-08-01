@@ -12,6 +12,9 @@
             <div class="container">
                 <h1>Book</h1>
                 <p>Search book</p>
+                <div th:if="${1<sizeOfBookList}" th:text="'Found ' + ${sizeOfBookList} + ' books'"> Found X books</div>
+                <div th:if="${1==sizeOfBookList}" th:text="'Found ' + ${sizeOfBookList} + ' book'"> Found 1 book</div>
+                <div th:if="${0==sizeOfBookList}" > We dont have books matching to your criteria.</div>
             </div>
         </div>
     </section>

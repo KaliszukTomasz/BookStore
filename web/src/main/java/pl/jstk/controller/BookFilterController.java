@@ -13,6 +13,8 @@ import pl.jstk.service.BookService;
 import pl.jstk.to.BookTo;
 
 import java.awt.print.Book;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BookFilterController {
@@ -22,7 +24,7 @@ public class BookFilterController {
 
 
     @GetMapping(value = "/books/find")
-    public String viewAllBooks( Model model) {
+    public String viewAllBooks(Model model) {
 
         model.addAttribute("newBook", new BookTo());
         model.addAttribute("bookList", bookService.findAllBooks());
@@ -35,8 +37,15 @@ public class BookFilterController {
     public String viewFilteredBooks(@ModelAttribute BookTo bookTo, Model model) {
 
         model.addAttribute("newBook", new BookTo());
-        model.addAttribute("bookList", bookService.findBooksByTitleAndAuthor(bookTo.getTitle(), bookTo.getAuthors()));
+        List<BookTo> filteredBookList = bookService.findBooksByTitleAndAuthor(bookTo.getTitle(), bookTo.getAuthors());
 
+        model.addAttribute("bookList", filteredBookList);
+
+        if (null != filteredBookList) {
+            model.addAttribute("sizeOfBookList", filteredBookList.size());
+        } else {
+            model.addAttribute("sizeOfBookList", "0");
+        }
         return ViewNames.BOOK_FINDER;
     }
 

@@ -13,11 +13,11 @@ public class BookTo {
     private Long id;
 
     @NotNull
-    @Size(min = 2, max = 30)
+    @Size(min = 1, max = 30)
     private String title;
 
     @NotNull
-    @Size(min = 2, max = 30)
+    @Size(min = 1, max = 30)
     private String authors;
     private BookStatus status;
     

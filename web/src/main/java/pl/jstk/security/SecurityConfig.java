@@ -23,15 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().permitAll()
                 .and().exceptionHandling().accessDeniedPage("/403");
-//                .antMatchers("/").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().loginPage("/login").permitAll()
-//                .and()
-//                .logout().permitAll();
         httpSecurity.csrf().disable();
-        httpSecurity.headers().frameOptions().disable();//TODO co to jest?
-        //po zalogowaniu powinien przekierowac na stronę, na którą chcieliśmy sie wbić
+        httpSecurity.headers().frameOptions().disable();
     }
 
     @Override
@@ -40,7 +33,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .inMemoryAuthentication()
                 .withUser(User.withUsername("user").password("{noop}user").roles("USER").build())
                 .withUser(User.withUsername("admin").password("{noop}admin").roles("ADMIN").build());
-//                .withUser("admin1").password("admin").roles("ADMIN")
-//                .and().withUser("user1").password("user").roles("USER");
     }
 }

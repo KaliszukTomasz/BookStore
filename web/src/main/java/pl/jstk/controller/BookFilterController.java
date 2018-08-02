@@ -6,15 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import pl.jstk.constants.ModelConstants;
 import pl.jstk.constants.ViewNames;
 import pl.jstk.service.BookService;
 import pl.jstk.to.BookTo;
 
-import java.awt.print.Book;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class BookFilterController {
@@ -22,7 +18,12 @@ public class BookFilterController {
     @Autowired
     BookService bookService;
 
-
+    /**
+     * Response on query get /books/find
+     * find books page
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/books/find")
     public String viewAllBooks(Model model) {
 
@@ -32,7 +33,13 @@ public class BookFilterController {
         return ViewNames.BOOK_FINDER;
     }
 
-
+    /**
+     * Response on query post /books/find
+     * searching books
+     * @param bookTo
+     * @param model
+     * @return
+     */
     @PostMapping(value = "/books/find")
     public String viewFilteredBooks(@ModelAttribute BookTo bookTo, Model model) {
 
@@ -48,19 +55,4 @@ public class BookFilterController {
         }
         return ViewNames.BOOK_FINDER;
     }
-
-//    @PostMapping(value = "/books/find")
-//    public String viewFilteredBooks(@ModelAttribute BookTo book, Model model){
-//
-//        model.addAttribute("bookList", bookService.findBooksByAuthor(book.getAuthors()));
-//
-//        return ViewNames.BOOK_FINDER;
-//    }
-//    @GetMapping(value = "/books/book")
-//    public String viewDetailOfBookId(@RequestParam("id") Long id,  Model model){
-//
-//        model.addAttribute("book", bookService.findBookById(id));
-//        return ViewNames.BOOK;
-//    }
-
 }

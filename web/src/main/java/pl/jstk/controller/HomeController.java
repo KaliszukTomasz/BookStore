@@ -15,12 +15,20 @@ public class HomeController {
     private static final String INFO_TEXT = "Here You shall display information containing information about newly created TO";
     protected static final String WELCOME = "This is a welcome page";
 
+
+    /**
+     * Response on query to mainpage -> get /
+     * Main page - welcome
+     * @param httpServletRequest
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/")
     public String welcome(HttpServletRequest httpServletRequest, Model model) {
         if (httpServletRequest.getUserPrincipal() != null) {
             String userLogin = httpServletRequest.getUserPrincipal().getName();
             model.addAttribute("userLogin", userLogin);
-        }//TODO jak odgórnie do wszystkich przypisać do headera zmienną
+        }
         model.addAttribute(ModelConstants.MESSAGE, WELCOME);
         model.addAttribute(ModelConstants.INFO, INFO_TEXT);
 

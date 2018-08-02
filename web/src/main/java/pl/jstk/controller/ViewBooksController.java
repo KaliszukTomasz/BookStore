@@ -27,17 +27,26 @@ public class ViewBooksController {
     @Autowired
     UserService userService;
 
+    /**
+     * Response to query get /books
+     * books list page
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/books")
     public String viewAllBooks(Model model) {
-
-//        String userLogin = httpServletRequest.getUserPrincipal().getName();
-////        UserEntity loggedUser = userService.findByUserName(userLogin);
-//        model.addAttribute("userLogin", userLogin);
-        model.addAttribute("bookList", bookService.findAllBooks());
+    model.addAttribute("bookList", bookService.findAllBooks());
 
         return ViewNames.BOOKS;
     }
 
+    /**
+     * Response to query get /books/book
+     * book details page
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/books/book")
     public String viewDetailOfBookId(@RequestParam Long id, Model model) {
 
@@ -45,6 +54,12 @@ public class ViewBooksController {
         return ViewNames.BOOK;
     }
 
+    /**
+     * Response to query get /403 (access denied)
+     * 403 access denied page
+     * @param model
+     * @return
+     */
     @GetMapping("/403")
     public String viewAccessDenied(Model model){
         model.addAttribute("error", "Access Denied! You are only a user, " +
@@ -52,6 +67,13 @@ public class ViewBooksController {
         return ViewNames.ACCESS_DENIED;
     }
 
+    /**
+     * Response to query get /books/deleteBook
+     * Deleting book
+     * @param id
+     * @param model
+     * @return
+     */
     @Secured("ROLE_ADMIN")
     @GetMapping(value = "/books/deleteBook")
     public String viewDeleteCompleted(@RequestParam Long id, Model model) {
@@ -61,12 +83,25 @@ public class ViewBooksController {
         return ViewNames.BOOKS;
     }
 
+    /**
+     * Response to query get /books/add
+     * adding book page
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/books/add")
     public String viewAddBook(Model model) {
         model.addAttribute("newBook", new BookTo());
         return ViewNames.ADD_BOOK;
     }
 
+    /**
+     * Response to query post /books
+     * creating new book in database
+     * @param bookTo
+     * @param model
+     * @return
+     */
     @PostMapping("/books")
     @ResponseStatus(value = HttpStatus.CREATED)
     public String viewAfterAddBook(@ModelAttribute @Valid BookTo bookTo, Model model) {
@@ -78,6 +113,12 @@ public class ViewBooksController {
         return ViewNames.BOOKS;
     }
 
+    /**
+     * Response to query get /login
+     * login page
+     * @param model
+     * @return
+     */
     @GetMapping("/login")
     public String viewLoginPage(Model model) {
 

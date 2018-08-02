@@ -19,15 +19,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.util.NestedServletException;
 import pl.jstk.service.BookService;
 import pl.jstk.to.BookTo;
 
-import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.testSecurityContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -77,7 +76,6 @@ public class ViewBooksControllerTest {
         // then
         resultActions.andExpect(status().is(302)).
                 andExpect(redirectedUrl("http://localhost/login"));
-//                . andExpect(view().name("books"));
         Mockito.verifyNoMoreInteractions(bookService);
 
 
@@ -121,15 +119,21 @@ public class ViewBooksControllerTest {
     public void testBookPageDetails() throws Exception {
         // given
         BookTo bookTo = new BookTo(1L, "Book1", "Author", LOAN);
+        List<BookTo> bookList = new ArrayList<>();
+        bookList.add(bookTo);
         Mockito.when(bookService.findBookById(Mockito.any())).thenReturn(bookTo);
+        Mockito.when(bookService.findAllBooks()).thenReturn(bookList);
         // when
-        ResultActions resultActions = mockMvc.perform(get("/books"));
+        ResultActions resultActions = mockMvc.perform(get("/books/book?id=1"));
         // then
-//        andExpect(model().attribute("todos", hasSize(2)))
-        resultActions.andExpect(status().isOk()).andExpect(model().attribute("bookList", hasSize(0)))
-                .andExpect(view().name("books"));
-        Mockito.verify(bookService, Mockito.times(1))
-                .findAllBooks();
+        resultActions.andExpect(status().isOk())
+                .andExpect(view().name("book"))
+                .andExpect(model().attribute("book", hasProperty("id", is(bookTo.getId()))))
+                .andExpect(model().attribute("book", hasProperty("title", is(bookTo.getTitle()))))
+                .andExpect(model().attribute("book", hasProperty("authors", is(bookTo.getAuthors()))))
+                .andExpect(model().attribute("book", hasProperty("status", is(bookTo.getStatus()))));
+
+        Mockito.verify(bookService, Mockito.times(1)).findBookById(Mockito.any());
 
     }
 
@@ -175,6 +179,21 @@ public class ViewBooksControllerTest {
                 .andExpect(view().name("addBook"));
         Mockito.verifyNoMoreInteractions(bookService);
 
+    }
+
+    @Test
+    @WithMockUser(username = "admin", authorities = {"ADMIN"})
+    public void testBookDetailsPage() throws Exception {
+        // given
+        BookTo bookTo = new BookTo(0L, "Book1", "Author", LOAN);
+        Mockito.when(bookService.findBookById(Mockito.any())).thenReturn(bookTo);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/books/book?id=1"));
+        // then
+        resultActions.andExpect(status().isOk())
+                .andExpect(view().name("book"));
+        Mockito.verify(bookService, Mockito.times(1)).findBookById(Mockito.any());
     }
 
     @Test
